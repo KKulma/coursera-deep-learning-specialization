@@ -1,0 +1,182 @@
+---
+title: "structuring-ML-project"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#### WEEK 1 ####
+
+
+### INTRODUCTION TO ML STRATEGY  ####
+
+
+# WHY ML STRATEGY
+
+When you have a model with good accuracy, what could be options to make it better?
+- collect more data
+- more diverse data set
+- training for longer with gradient descent
+- bigger/smaller network
+- try dropout
+- add L2 regularixation
+- change network architecture (activation functions, hidden units, etc.)
+
+what are ways of quickly testing which of these options will improve the results?
+
+# ORTHOGONALIZATION
+
+## TV tuning examples
+each knob does only 1 thing to make sure thath the screen is centred correctly
+
+## Car example
+
+wheel for *stearing8, something else or breaking another for accellaring 
+
+## chain of assumpotions in ML
+
+1. fit training set well ==> 
+2. fit dev set well ==> 
+3. fit test set well ==> 
+4. performs well in real world 
+
+if 1. not very good -- try bigger network, Adam, etc.
+if 2. not very good -- try regularization, bigger train set
+if 3. not very good -- try bigger dev set
+if 4. not very good -- try chaning dev set or cost function
+
+
+### SETTING UP YOUR GOAL ####
+
+
+# SINGLE NUMBER EVALUATION METRIC
+
+**precision** =  of all the examples identified examples as positive , what % was actually positive?
+
+**recall** = of all positive examples, how many are correctly recognised?
+
+there's often a trade-off between the two, so which one to choose?
+
+**F1 Score** = harmonic mean of presicion and recall
+
+iterating improvement of ML model = have a well definied dev set and a single number evaluation metric, such as F1 score
+
+if you have multi-label classification problem, take accuracy average actoss all the groups as a criterium for judging different algorithms
+
+
+# SATISFICING AND OPTIMIZING METRIC
+
+e.g. we may want to maximize accuracy subject to running time being <= 100ms
+here, accuracy is an optimizing metric and running time satisficing metric
+
+if you have N metrics you care about, pick 1 to be an optimising metric and the rest should be optimicing metrics with specified, 'good enough' threshold. 
+
+
+# train/Dev/test distributions
+
+
+## dev/test sets
+
+dev = development set = hold out cross-validation set
+
+dev and test sets should come from the same distributions and should be evaluated using the same metric!
+
+# Size of the dev and test sets
+
+## old way of splitting data
+
+train/test 0.7/0.3 split
+or
+train/dev/test - 0.6/0.2/0.2 split
+
+appropriate if you work with relatively small datasets
+
+but if you work with relatively big data (e.g. 1M obs) it makes sense to train on 98% and use 1% for dev and test sets respectively
+
+
+## size of test set
+set you test set to be big enough to be big enough to give high confidence in the overall performance of your system
+
+# when to change dev/test sets and metrics
+example of 2 algorithms where one is more accurate but lets pornoghraphic images in while the other one does not. In such case, 'pure' accuracy measures are not appropriate so we need to redefine our new error metric so that it contains penalty for, e.g. occurance and the number of pornographic images.
+
+ORTHOGONALIZATION OF THE PROBLEM
+1) what's the success metric/target?
+2) how to do well on this target?
+
+So the guideline is, if doing well on your metric and your current dev sets or dev and test sets' distribution, if that does not correspond to doing well on the application you actually care about, then change your metric and your dev test set. 
+
+
+# COMPARING TO HUMAN LEVEL PERFORMANCE --------------
+
+# WHY HUMAN LEVEL PERFORMANCE?
+
+**bayes optimal error** - best possible error
+i.e. optimal level of accuracy may not be 100% - e.g. audio is so noisy or picture sp blurry that you can't classify them all correctly.
+
+For tasks that humans are good at, so long as your machine learning algorithm is still worse than the human, you can 
++ get labeled data from humans. That is you can ask people, ask higher humans, to label examples for you so that you can have more data to feed your learning algorithm. (manual error analysis). 
++ ask people to look at examples that your algorithm's getting wrong, and try to gain insight in terms of why a person got it right but the algorithm got it wrong.
++ get a better analysis of bias and variance 
+
+
+## Avoiadable bias
+2 examples; assumptions:
+
+human performance = bayes error 
+
+**case 1**
+human = 1% error
+training set error = 8% error
+dev set error = 10% error
+big discrepancy between  bayes error and training set error
++ focus on reducing **bias**
++ avoidable bias = 8-1 = 7%
+
+**case 2**
+human = 7.5% error
+training set error = 8% error
+dev set error = 10% error
+very small discrepancy between  bayes error and training set error
++ focus on reducing **variance**
++ avoidable bias = 8-7.5 = 0.5%
+
+## Understanding human level performance
+
+Human performance should be a proxy for bayes error, so in cases where we have different accuracy levels for different groups of people, e.g. in medical imagining, untrained doctor would have 3%, then trained doctor, 2%, then a team of specilaists 1%, we should use 1% as Bayes error.
+
+## Surpassing human-level performance
+
+problems where ML surpasses human performance (**not natural perception tasks**)
+- online advertising
+- product recommendations
+- how long it takes to drive from a to b
+- loan approvals
+
+what about **natural perception tasks** ?
+- speech recognition
+- some image recognition
+- medical imagining
+
+## Improving your model performance
+
+Techniques to reduce your avoidable bias:
++ train bigger model (more data)
++ train longer/better optimization algorithms (ADS momentum or RMSprop, or use a better algorithm like Adam)
++ find better NN architecture/hyerparameter search (RNN, CNN)
+
+
+Techniques to reduce your variance:
++ more data
++ regularization (L2 regularization or dropout or data augmentation)
++ find better NN architecture/hyerparameter search (RNN, CNN)
+
+
+
+
+
+
+
+
+

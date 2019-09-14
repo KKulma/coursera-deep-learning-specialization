@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1568499153090.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "546157376",
+    "id" : "3682F694",
+    "lastKnownWriteTime" : 1568498772,
+    "last_content_update" : 1568498772,
+    "path" : "~/MEGAsync/01-Mango/01-Documents/08-knowledge&learning/coursera_structuring_ML-projects/03-structuring-ML-projects/structuring-ML-projects.Rmd",
+    "project_path" : "structuring-ML-projects.Rmd",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
