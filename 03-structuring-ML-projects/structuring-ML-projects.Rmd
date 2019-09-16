@@ -180,6 +180,7 @@ Techniques to reduce your variance:
 ## Carrying out error analysis
 
 if the model shows a high error rate then make an effort to
+
 1) generate hypotheses on why the model is failing (e.g. mislabels dogs, big cats, blurry pitures) 
 
 2) manually inspect a sample (e.g. 100) dev set images that were misclassified and count how many fall into different categories.
@@ -218,6 +219,55 @@ Now one question you might ask is, should you always use all the data you have? 
 ## Bias and Variance with mismatched data distribution
 
 
+| Error Type | Error Value 1 | Bias type 1 | Error Value 2 | Bias type 2 |
+| ---------------- | ---------------- | ---------------- | ---------------- | ---------------- |
+| Human error | 0% | Avoidable bias | | |
+| Training set error | 10% | Variance | | |
+| Training-dev set error | 11% | | |Data Mismatch |
+| Dev set error | 12% | | 20% | |
+| Test set error | 12% | Degree of overfittig to the dev set | | |
+
+there are not many systematic ways of addressing data mismatch problems but there are a few things you can try. See next chapter.
+
+## Addressing data mismatch
+
+How to address the mismatch data problem? SOme ideas:
+
++ carry out manual error analysis and try to understand the differences between the training set and the dev/test sets (e.g. in speech recognition, dev set has more car background noise).
+
+To avoid overfitting the test set, technically for error analysis, you should manually only look at a dev set and not at the test set
+
++ make training/dev data more similar, e.g. synthesise car noise and your samples (artificial data synthesis)
+
+
+# Learning from multiple tasks
+
+## Transfer learning
+
+So to be concrete, during the first phase of training when you're training on an image recognition task, you train all of the usual parameters for the neural network, all the weights, all the layers and you have something that now learns to make image recognition predictions. Having trained that neural network, what you now do to implement transfer learning is swap in a new data set X Y, where now these are radiology images. And Y are the diagnoses you want to predict and what you do is initialize the last layers' weights. Let's call that W.L. and P.L. randomly. And now, retrain the neural network on this new data set, on the new radiology data set. You have a couple options of how you retrain neural network with radiology data. You might, if you have a small radiology dataset, you might want to just retrain the weights of the last layer, just W.L. P.L., and keep the rest of the parameters fixed. If you have enough data, you could also retrain all the layers of the rest of the neural network. And the rule of thumb is maybe if you have a small data set, then just retrain the one last layer at the output layer. Or maybe that last one or two layers. But if you have a lot of data, then maybe you can retrain all the parameters in the network. And if you retrain all the parameters in the neural network, then this initial phase of training on image recognition is sometimes called pre-training, because you're using image recognitions data to pre-initialize or really pre-train the weights of the neural network. And then if you are updating all the weights afterwards, then training on the radiology data sometimes that's called fine tuning. So you hear the words pre-training and fine tuning in a deep learning context, this is what they mean when they refer to pre-training and fine tuning weights in a transfer learning source. 
+
+**Why is it useful?**
+Learning from that, from a very large image recognition data set, might help your learning algorithm do better in radiology diagnosis. It's just learned a lot about the structure and the nature of how images look like and some of that knowledge will be useful. So having learned to recognize images, it might have learned enough about you know, just what parts of different images look like, that that knowledge about lines, dots, curves, and so on, maybe small parts of objects, that knowledge could help your radiology diagnosis network learn a bit faster or learn with less data
+
+**when does Transfer learning make sense?** 
++ task A & B have the same input (image, audio)
++ you have a lotmore   data for A (that you learn from)
++ low level features from A can be useful in learning B
+
+# Multi-task learning
+
+for example, each imagine can have multiple labels: pedestrians, cars, stop signs and traffic lights.
+
+ins such cases, mutli-task learning tends to have a better performance than training 4 separate NN.
+
+**when does multi-task learning make sense?**
+
++ when training on a set of tasks that could benefit from havnf shared lower-level features
++ (usually) amount of data you have for each tasks is quite similar
++ can train a big enough NN to do well on all the tasks
+
+
+# end to end learning
 
 
 
