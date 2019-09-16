@@ -173,6 +173,50 @@ Techniques to reduce your variance:
 + find better NN architecture/hyerparameter search (RNN, CNN)
 
 
+#### WEEK 2 ####
+
+# Error analysis 
+
+## Carrying out error analysis
+
+if the model shows a high error rate then make an effort to
+1) generate hypotheses on why the model is failing (e.g. mislabels dogs, big cats, blurry pitures) 
+
+2) manually inspect a sample (e.g. 100) dev set images that were misclassified and count how many fall into different categories.
+
+
+This will give you an idea on how much you're likely to improve the model performance if you decide to tackle one or more of the issues.
+
+## Cleaning up incorrectly labeled data
+
+DL algorithms are quite robust to random, but not systematic, errors!
+
+it's worth inspecting if the errors on the dev set originate from incorrectly labelled data (e.g. if the dog was labelled as cat, etc.). Then, pick 100-200 misclassified dev examples to see what proportion of them actually have an incorrect label. if it makes a significant difference to your ability to evaluate algorithms on your dev set, then go ahead and spend the time to fix incorrect labels. But if it doesn't make a significant difference to your ability to use the dev set to evaluate cost buyers, then it might not be the best use of your time. 
+
+For example, if the total error is 10% but error attributable to incorrenct label is only 0.6%, probably it's not worth pursuing it.
+
+On the other hand, if the total error is 2% but error attributable to incorrenct label is only 0.6%, probably it's worth pursuing it.
+
+Keep in mind that with extensive label fixing you may end up with train and dev/test sets that have slightly different distrubutions. This should not be a problem and it will covered later how to deal with suh situations.
+
+## Build your first system quickly, then iterate
+
+build something quick and dirty and then perform error * bias/variance analysis to learn from and iterate on the solution.
+
+# Mismatched traing and dev/test sets 
+
+## Training and testing on different distributions
+
+o in this video, you've seen a couple examples of when allowing your training set data to come from a different distribution than your dev and test set allows you to have much more training data. And in these examples, it will cause your learning algorithm to perform better. 
+
+e.g. you can use data from one distribution as train and then smaller set as dev/test sets
+
+alternatively, you can mix up a bigger and smaller sets in train sets and then use the remaining small set for dev/test.
+
+Now one question you might ask is, should you always use all the data you have? The answer is subtle, it is not always yes. Let's look at a counter-example in the next video.
+
+## Bias and Variance with mismatched data distribution
+
 
 
 
