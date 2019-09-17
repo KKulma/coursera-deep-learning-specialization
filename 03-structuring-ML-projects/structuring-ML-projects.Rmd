@@ -269,6 +269,27 @@ ins such cases, mutli-task learning tends to have a better performance than trai
 
 # end to end learning
 
+## What is end-to-end deep learning?
+
+There have been some data processing systems, or learning systems that require multiple stages of processing. And what end-to-end deep learning does, is it can take all those multiple stages, and replace it usually with just a single neural network.
+
+One of the challenges of end-to-end deep learning is that you might need a lot of data before it works well. So for example, if you're training on 3,000 hours of data to build a speech recognition system, then the traditional pipeline, the full traditional pipeline works really well. It's only when you have a very large data set, you know one to say 10,000 hours of data, anything going up to maybe 100,000 hours of data that the end-to end-approach then suddenly starts to work really well.
+
+# Whether to use end-to-end deep learning
+
+**pros and cons of end-to-end learning**
+
+pros:
++ let the data speak
++ less hand designing components
+
+cons:
++ may need a lot of data
++ excluedes potentially useful hand-designed components
+
+the key question is: **do you have sufficient data to learn the function of the complexity needed to map from X to Y?**
+
+
 
 
 
